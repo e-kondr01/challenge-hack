@@ -1,4 +1,4 @@
-# Django REST API template
+# Challenge hack
 
 ## Python version
 \>= 3.10

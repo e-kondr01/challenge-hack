@@ -13,7 +13,7 @@ services:
 
   backend:
     restart: always
-    container_name: template_app
+    container_name: challenge_hack
     build: ./app
     command: bash -c "
       python manage.py migrate &&
@@ -25,6 +25,21 @@ services:
       - 8000
     depends_on:
       - postgres
+
+  backend_asgi:
+    build: ./app
+    container_name: challenge_hack_asgi
+    restart: always
+    expose:
+      - 8100
+    depends_on:
+      - postgres
+    volumes:
+      - ./app:/app
+    command: bash -c "
+      python3 manage.py migrate &&
+      python3 manage.py collectstatic --noinput &&
+      uvicorn --host 0.0.0.0 --port 8100 --reload app.asgi:application"
 
   nginx:
     build: ./nginx
