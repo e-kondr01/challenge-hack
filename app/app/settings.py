@@ -252,19 +252,3 @@ CHANNEL_LAYERS = {
         },
     },
 }
-
-# Sentry
-# ------------------------------------------------------------------------------
-if not DEBUG:
-    import sentry_sdk
-    from sentry_sdk.integrations.django import DjangoIntegration
-    from sentry_sdk.integrations.logging import ignore_logger
-
-    SENTRY_DSN = env("SENTRY_DSN")
-    integrations = [DjangoIntegration()]
-    sentry_sdk.init(
-        dsn=SENTRY_DSN,
-        integrations=integrations,
-    )
-
-    ignore_logger("django.security.DisallowedHost")
