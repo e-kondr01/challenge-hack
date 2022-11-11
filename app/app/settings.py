@@ -7,7 +7,7 @@ import environ
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env()
-env.read_env(BASE_DIR / "django_core" / ".env")
+env.read_env(BASE_DIR / "app" / ".env")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "fzxUxspoPbJsJqm9xDgpFvHte7xa0vyZkhP6N4x8"
@@ -23,6 +23,7 @@ APPEND_SLASH = False
 # Application definition
 
 DJANGO_APPS = [
+    "daphne",
     "jazzmin",  # Needs to be placed before django.contrib.admin
     "django.contrib.admin",
     "django.contrib.auth",
@@ -40,7 +41,7 @@ THIRD_PARTY_APPS = [
     "django_filters",
 ]
 
-LOCAL_APPS = ["users"]
+LOCAL_APPS = ["donations", "users"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -59,7 +60,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
 ]
 
-ROOT_URLCONF = "django_core.urls"
+ROOT_URLCONF = "app.urls"
 
 TEMPLATES = [
     {
@@ -77,7 +78,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "django_core.wsgi.application"
+WSGI_APPLICATION = "app.wsgi.application"
 
 
 # Database
@@ -215,7 +216,7 @@ SPECTACULAR_SETTINGS = {
     "TITLE": "Template Django REST API",
     "DESCRIPTION": "Template Django REST API",
     "VERSION": "0.0.1",
-    "SERVE_INCLUDE_SCHEMA": False
+    "SERVE_INCLUDE_SCHEMA": False,
 }
 
 
@@ -239,6 +240,18 @@ if DEBUG:
         }
     )
 
+# Channels
+
+ASGI_APPLICATION = "app.asgi.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [(env.str("REDIS_HOST"), env.int("REDIS_PORT"))],
+        },
+    },
+}
 
 # Sentry
 # ------------------------------------------------------------------------------

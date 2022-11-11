@@ -18,14 +18,14 @@ source .venv/bin/activate
 
 3. Install requirements
 ```bash
-pip install -r django_core/requirements/local.txt
+pip install -r app/requirements/local.txt
 ```
 
 Run ``pip freeze`` after project's first requirements installation to pin requirements' versions.
 
 4. Copy .env
 ```bash
-cp django_core/django_core/local.example.env django_core/django_core/.env
+cp app/app/local.example.env app/app/.env
 ```
 
 #### Docker and Docker compose
@@ -52,7 +52,7 @@ During development, use Black formatter, Pylint and Flake8.
 ### Installation
 Copy .env:
 ```bash
-cp django_core/django_core/production.example.env django_core/django_core/.env
+cp app/app/production.example.env app/app/.env
 ```
 
 ### Deploy
