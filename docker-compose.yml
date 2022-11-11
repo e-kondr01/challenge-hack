@@ -18,14 +18,11 @@ services:
     build: ./app
     command: bash -c "
       python manage.py migrate &&
-      python manage.py collectstatic --noinput &&
       gunicorn app.wsgi:application --bind 0.0.0.0:8000 --reload"
     volumes:
       - ./app:/app
-    # expose:
-    #   - 8000
-    ports:
-      - "8000:8000"
+    expose:
+      - 8000
     depends_on:
       - postgres
 
@@ -33,23 +30,21 @@ services:
     build: ./app
     container_name: challenge_hack_asgi
     restart: always
-    # expose:
-    #   - 8100
-    ports:
-      - "8100:8100"
+    expose:
+      - 8100
     depends_on:
       - postgres
     volumes:
       - ./app:/app
     command: uvicorn --host 0.0.0.0 --port 8100 --reload app.asgi:application
 
-  # nginx:
-  #   restart: always
-  #   build: ./nginx
-  #   ports:
-  #     - "8300:80"
-  #   depends_on:
-  #     - backend
+  nginx:
+    restart: always
+    build: ./nginx
+    ports:
+      - "8300:80"
+    depends_on:
+      - backend
 
   redis:
     restart: always
