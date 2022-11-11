@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
   postgres:
+    restart: always
     image: postgres:14.5
     ports:
       - "5436:5432"
@@ -39,6 +40,7 @@ services:
     command: uvicorn --host 0.0.0.0 --port 8100 --reload app.asgi:application
 
   nginx:
+    restart: always
     build: ./nginx
     ports:
       - 8000:80
@@ -46,6 +48,7 @@ services:
       - backend
 
   redis:
+    restart: always
     image: redis:7.0.4
     expose:
       - 6379
