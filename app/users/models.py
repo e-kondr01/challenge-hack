@@ -63,4 +63,6 @@ class User(AbstractUser):
         max_digits=15, decimal_places=2, default=0, verbose_name="Баланс"
     )
 
+    profile_picture_url = models.URLField(blank=True, verbose_name="Ссылка на аватарку")
+
     objects = UserManager()
