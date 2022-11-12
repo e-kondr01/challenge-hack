@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import User
+
 
 class Donation(models.Model):
 
@@ -16,6 +18,13 @@ class Donation(models.Model):
     )
 
     attachment_url = models.URLField(blank=True, verbose_name="URL вложения")
+
+    donated_to: User = models.ForeignKey(
+        to=User,
+        on_delete=models.CASCADE,
+        related_name="received_donations",
+        verbose_name="Донат пользователю",
+    )
 
     def __str__(self) -> str:
         return f"{self.author_name}: {self.message}"

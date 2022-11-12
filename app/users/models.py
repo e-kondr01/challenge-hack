@@ -53,12 +53,14 @@ class User(AbstractUser):
 
     REQUIRED_FIELDS = []
 
-    username = None
-
     first_name = None
 
     last_name = None
 
     email = models.EmailField(unique=True, verbose_name="Адрес электронной почты")
+
+    balance = models.DecimalField(
+        max_digits=15, decimal_places=2, default=0, verbose_name="Баланс"
+    )
 
     objects = UserManager()

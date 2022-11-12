@@ -3,6 +3,9 @@ from drf_spectacular.utils import OpenApiExample, extend_schema
 from rest_framework_simplejwt.views import (
     TokenObtainPairView as TokenObtainPairViewNoExample,
 )
+from rest_framework.generics import RetrieveAPIView
+from users.models import User
+from users.serializers import CurrentUserInfoSerializer
 
 env = environ.Env()
 test_access_token = env.str("TEST_ACCESS_TOKEN", "")
@@ -22,3 +25,15 @@ class TokenObtainPairView(TokenObtainPairViewNoExample):
     """
     Получение JWT для авторизации запросов.
     """
+
+
+class CurrentUserInfoView(RetrieveAPIView):
+    """
+    Получение информации о текущем пользователе.
+    """
+
+    queryset = User.objects.all()
+    serializer_class = CurrentUserInfoSerializer
+
+    def get_object(self):
+        return self.request.user

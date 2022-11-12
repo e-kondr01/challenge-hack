@@ -6,4 +6,12 @@ from .models import Donation
 class DonationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Donation
-        fields = "__all__"
+        fields = (
+            "id",
+            "amount",
+            "currency",
+            "author_name",
+            "message",
+            "created_at",
+            "attachment_url",
+        )

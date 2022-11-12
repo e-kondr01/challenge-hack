@@ -13,5 +13,6 @@ urlpatterns = [
     ),
     path("auth/jwt/create/", TokenObtainPairView.as_view(), name="jwt-create"),
     path("auth/", include("djoser.urls.jwt")),
-    path("donations", include("donations.urls")),
+    path("donation", include("donations.urls")),
+    path("user", include("users.urls")),
 ]
