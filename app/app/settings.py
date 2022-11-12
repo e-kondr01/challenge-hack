@@ -222,8 +222,8 @@ if not DEBUG:
 # DRF Spectacular
 
 SPECTACULAR_SETTINGS = {
-    "TITLE": "Template Django REST API",
-    "DESCRIPTION": "Template Django REST API",
+    "TITLE": "Donations REST API",
+    "DESCRIPTION": "Donations Django REST API",
     "VERSION": "0.0.1",
     "SERVE_INCLUDE_SCHEMA": False,
 }

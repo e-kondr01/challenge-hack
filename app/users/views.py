@@ -3,9 +3,10 @@ from drf_spectacular.utils import OpenApiExample, extend_schema
 from rest_framework_simplejwt.views import (
     TokenObtainPairView as TokenObtainPairViewNoExample,
 )
-from rest_framework.generics import RetrieveAPIView
+from rest_framework.generics import RetrieveAPIView, ListAPIView
 from users.models import User
-from users.serializers import CurrentUserInfoSerializer
+from users.serializers import CurrentUserInfoSerializer, UserListSerializer
+from rest_framework.permissions import AllowAny
 
 env = environ.Env()
 test_access_token = env.str("TEST_ACCESS_TOKEN", "")
@@ -37,3 +38,13 @@ class CurrentUserInfoView(RetrieveAPIView):
 
     def get_object(self):
         return self.request.user
+
+
+class UserListView(ListAPIView):
+    """
+    Получение списка пользователей, которым можно отправить донат.
+    """
+
+    queryset = User.objects.all()
+    serializer_class = UserListSerializer
+    permission_classes = (AllowAny,)
