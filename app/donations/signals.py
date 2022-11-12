@@ -9,7 +9,7 @@ from .serializers import ReceivedDonationSerializer
 
 
 @receiver(post_save, sender=Donation)
-def notify_new_donation(_, instance: Donation, created: bool = False, **kwargs):
+def notify_new_donation(sender, instance: Donation, created: bool = False, **kwargs):
     if created:
         serializer = ReceivedDonationSerializer(instance)
         group_name = get_donation_consumer_group_name(instance.donated_to)
