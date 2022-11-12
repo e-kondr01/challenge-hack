@@ -1,6 +1,7 @@
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView
 from donations.models import Donation
-from donations.serializers import DonationSerializer
+from donations.serializers import ReceivedDonationSerializer, MakeDonationSerializer
+from rest_framework.permissions import AllowAny
 
 
 class ReceivedDonationsListView(ListAPIView):
@@ -9,7 +10,17 @@ class ReceivedDonationsListView(ListAPIView):
     """
 
     queryset = Donation.objects.none()
-    serializer_class = DonationSerializer
+    serializer_class = ReceivedDonationSerializer
 
     def get_queryset(self):
         return Donation.objects.filter(donated_to=self.request.user)
+
+
+class MakeDonationView(CreateAPIView):
+    """
+    Внести донат.
+    """
+
+    queryset = Donation.objects.none()
+    serializer_class = MakeDonationSerializer
+    permission_classes = (AllowAny,)
