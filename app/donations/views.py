@@ -13,7 +13,7 @@ class ReceivedDonationsListView(ListAPIView):
     serializer_class = ReceivedDonationSerializer
 
     def get_queryset(self):
-        return Donation.objects.filter(donated_to=self.request.user)
+        return Donation.objects.filter(donated_to=self.request.user).order_by("-created_at")
 
 
 class MakeDonationView(CreateAPIView):
