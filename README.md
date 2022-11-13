@@ -1,5 +1,7 @@
 # Challenge hack
 
+Ссылка на демо: https://www.youtube.com/shorts/i24Ody_TZg4?feature=share
+
 ## Python version
 \>= 3.10
 
