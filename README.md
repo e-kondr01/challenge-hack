@@ -1,6 +1,4 @@
-# Challenge hack
-
-Ссылка на демо: https://www.youtube.com/shorts/i24Ody_TZg4?feature=share
+# Donations app backend
 
 ## Python version
 \>= 3.10
